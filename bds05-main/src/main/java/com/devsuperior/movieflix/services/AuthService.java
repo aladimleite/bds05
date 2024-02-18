@@ -36,4 +36,13 @@ public class AuthService {
         }
 
     }
+
+	public void validateSelf(Long id) {
+		User user = authenticated();
+		
+		if (!user.getId().equals(id) && (!user.hasHole("ROLE_MEMBER") || !user.hasHole("ROLE_VISITOR"))) {
+			throw new ForbiddenException("Access denied");
+		}
+	}
+
 }
